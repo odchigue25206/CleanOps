@@ -31,48 +31,39 @@ pip install datamedic
 # Example usage
 
 ```python
-# Import core modules from the DataMedic package
 from DataMedic.data_getter import DataGetter
 from DataMedic.data_doctor import DataDoctor
-from DataMedic.data_visualizer import DataVisualizer
-from DataMedic.data_exporter import DataExporter
 from DataMedic.report_generator import ReportGenerator
-from DataMedic.data_pipeline import DataPipeline
+from DataMedic.visualizer import DataVisualizer
+from DataMedic.exporter import DataExporter
+from DataMedic.pipeline import DataPipeline
 
-# 1. Load a dataset
-getter = DataGetter(r"C:\Users\jorda\Documents\GitHub\DataMedic\datasets")
-df = getter.read_csv("dirty_cafe_sales.csv")
+# === Step 1: Load dataset ===
+getter = DataGetter()
+print("Loading file...")
+df = getter.read_csv("sample.csv")
 
-# 2. Diagnose and clean using DataDoctor
+# === Step 2: Initialize doctor ===
 doctor = DataDoctor(df)
-print("Issues Found:", doctor.inspect())
-print("Doctor Diagnosis:", doctor.diagnose())
 
-cleaned_df = doctor.treat()
+# === Step 3: Visualizer & Exporter ===
+visualizer = DataVisualizer(df)
+exporter = DataExporter(df)
 
-# 3. Visualize the cleaned dataset
-viz = DataVisualizer(cleaned_df)
-viz.plot_missing()          # Missing values heatmap
-viz.plot_histograms()       # Numeric distributions
-viz.plot_correlations()     # Correlation matrix
-
-# 4. Generate a quality report
+# === Step 4: Report Generator ===
 reporter = ReportGenerator(doctor)
-report = reporter.report()
-score = reporter.health_score()
 
-print("\n--- Data Quality Report ---")
-print(report)
-print("Health Score:", score)
+# === Step 5: Build pipeline ===
+pipeline = DataPipeline(
+    doctor=doctor,
+    visualizer=visualizer,
+    exporter=exporter,
+    reporter=reporter
+)
 
-# 5. Export cleaned data
-exporter = DataExporter(cleaned_df)
-exporter.to_csv("cleaned_output.csv")
-exporter.to_excel("cleaned_output.xlsx")
+# === Step 6: Run everything ===
+pipeline.run()
 
-# 6. (Optional) Full automated pipeline
-pipeline = DataPipeline(getter, doctor, reporter, exporter)
-final_data = pipeline.run("dirty_dataset.csv")
 ```
 
 
