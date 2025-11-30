@@ -4,7 +4,7 @@ import pathlib
 class DataGetter:
     """Fetch file data by name from a fixed base path."""
 
-    def __init__(self, base_path=r"C:\Users\A S P I R E\OneDrive\Documents\Test"):
+    def __init__(self, base_path="."):
         self._base_path = pathlib.Path(base_path)  # protected attribute
 
     def read_file(self, file_name):
