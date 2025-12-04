@@ -27,3 +27,4 @@ class DataGetter:
 
     def __repr__(self):
         return f"<DataGetter base_path='{self._base_path}'>"
+
