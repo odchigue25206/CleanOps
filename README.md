@@ -1,4 +1,4 @@
-# DataMedic
+# CleanOps
 
 A lightweight toolkit for inspecting, cleaning, organizing, and exporting datasets.  
 Designed for quick data quality checks, automated cleaning, and report generation.
@@ -28,7 +28,7 @@ The goal is to make data preprocessing easier and more consistent.
 Install via pip:
 
 ```bash
-pip install datamedic
+pip install cleanops
 ```
 
 Or, if you're installing from source:
@@ -45,7 +45,7 @@ pip install .
 
 ```python
 import pandas as pd
-from datamedic import DataCleaner
+from cleanops import DataCleaner
 
 df = pd.read_csv("sample.csv")
 
@@ -66,7 +66,7 @@ print(cleaned_df.head())
 ### **2. Exporting Cleaned Data**
 
 ```python
-from datamedic import DataExporter
+from cleanops import DataExporter
 
 exporter = DataExporter(cleaned_df)
 
@@ -80,7 +80,7 @@ exporter.to_json("output.json")
 ### **3. Generating a Data Report**
 
 ```python
-from datamedic import ReportGenerator
+from cleanops import ReportGenerator
 
 reporter = ReportGenerator(cleaned_df)
 report = reporter.report()
@@ -97,7 +97,7 @@ reporter.export_report("dataset_report.txt")
 ### **4. Running a Full Data Pipeline**
 
 ```python
-from datamedic import DataCleaner, DataOutput, DataPipeline
+from cleanops import DataCleaner, DataOutput, DataPipeline
 import pandas as pd
 
 df = pd.read_csv("sample.csv")
@@ -105,7 +105,11 @@ df = pd.read_csv("sample.csv")
 cleaner = DataCleaner(df)
 output = DataOutput(df)
 
-pipeline = DataPipeline(doctor=cleaner, exporter=output.exporter, reporter=output.reporter)
+pipeline = DataPipeline(
+    doctor=cleaner, 
+    exporter=output.exporter, 
+    reporter=output.reporter
+)
 pipeline.run()
 ```
 
@@ -116,5 +120,3 @@ pipeline.run()
 This project is released under the MIT License.
 
 ---
-
-If ganahan ka Jave, pwede tika himuan og **logo**, **PyPI description**, or **badge-style header** para mas professional tan-awon sa PyPI.
