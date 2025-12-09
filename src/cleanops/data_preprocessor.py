@@ -19,8 +19,19 @@ class DataInspector:
     def detect_missing(self) -> pd.Series:
         return self._data.isnull().sum()
 
-    def detect_duplicates(self) -> int:
-        return self._data.duplicated().sum()
+    def detect_duplicates(self) -> dict:
+        """
+        Return a dictionary showing duplicate counts for each column.
+        """
+        dup_info = {}
+
+        for col in self._data.columns:
+            dup_count = self._data[col].duplicated().sum()
+            if dup_count > 0:
+                dup_info[col] = f"{dup_count} duplicate values"
+
+        return dup_info
+
 
     def detect_outliers(self) -> Dict[str, int]:
         outliers: Dict[str, int] = {}
