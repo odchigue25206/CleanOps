@@ -15,8 +15,7 @@ It includes tools for:
 - Detecting outliers (IQR-based or statistical)  
 - Cleaning + automatic fixing  
 - Organizing dataset columns and rows  
-- Exporting cleaned data (CSV / Excel / JSON)  
-- Generating dataset health reports  
+- Exporting cleaned data (CSV / Excel / JSON) 
 - Running complete pipelines combining cleaning, exporting, and reporting  
 
 The goal is to make data preprocessing easier and more consistent.
