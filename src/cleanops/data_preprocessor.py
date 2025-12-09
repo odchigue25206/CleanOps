@@ -120,13 +120,35 @@ class DataCleaner(DataInspector):
             self._data[col] = self._data[col].fillna(fill_value)
             self._fix_log.append(f"Filled missing '{col}' with {fill_value}")
 
-    def fix_duplicates(self, column: str) -> None:
-        before = self._data.shape[0]
+   def fix_duplicates(self, column: str = None) -> None:
+    before = self._data.shape[0]
+
+    # If column is provided → behave exactly as originally intended
+    if column:
         self._data.drop_duplicates(subset=[column], inplace=True)
         removed = before - self._data.shape[0]
         self._fix_log.append(
             f"Removed {removed} duplicate rows based on column '{column}'"
         )
+        return
+
+    # No column provided → auto detect duplicate columns
+    duplicate_cols = []
+
+    for col in self._data.columns:
+        if self._data[col].duplicated().sum() > 0:
+            duplicate_cols.append(col)
+
+    # Apply column-based dedup for each detected column
+    for col in duplicate_cols:
+        before = self._data.shape[0]
+        self._data.drop_duplicates(subset=[col], inplace=True)
+        removed = before - self._data.shape[0]
+
+        if removed > 0:
+            self._fix_log.append(
+                f"Removed {removed} duplicate rows based on column '{col}'"
+            )
 
     def fix_outliers(self, strategy: str = "clip") -> None:
         """Handle outliers using strategy. Currently only 'clip' is supported."""
