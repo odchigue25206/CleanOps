@@ -1,0 +1,9 @@
+MISSING:
+{'Reservation_ID': 0, 'Guest_Name': 0, 'Check_In_Date': 0, 'Check_Out_Date': 0, 'Room_Code': 0, 'Number_of_Guests': 0, 'Total_Amount': 0, 'Payment_Method': 0, 'Contact_Number': 0, 'Booking_Status': 0, 'Country': 0}
+
+DUPLICATES:
+0
+
+OUTLIERS:
+{'Number_of_Guests': 0, 'Total_Amount': 0, 'Contact_Number': 0}
+
